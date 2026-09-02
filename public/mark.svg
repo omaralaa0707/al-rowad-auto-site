@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Their mark is a red shield carrying an R. -->
+  <path d="M24 3.5 41.5 8.6v15.9c0 9.4-7 17.3-17.5 20.5C13.5 41.8 6.5 33.9 6.5 24.5V8.6L24 3.5Z" fill="#b8261f" />
+  <path d="M17.5 34V14h8.9c4.3 0 7 2.3 7 6.1 0 2.7-1.4 4.7-3.8 5.6L34 34h-5.4l-3.9-7.4h-2.4V34h-4.8Z" fill="#f2efe9" />
+  <path d="M22.3 17.9v5.1h3.4c1.7 0 2.8-1 2.8-2.6s-1.1-2.5-2.8-2.5h-3.4Z" fill="#b8261f" />
+</svg>

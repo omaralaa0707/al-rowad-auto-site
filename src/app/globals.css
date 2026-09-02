@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+@theme {
+  /*
+   * Al Rowad publish almost nothing but designed ad creative, so this palette
+   * comes from the two real photographs of their showroom and from their
+   * mark: a polished pale floor (#797B78 in shade, lifted here to a paper
+   * ground), the near-black wall the slogan is painted on, and the red of
+   * their shield, measured at #FF4E47.
+   *
+   * The green is not theirs and is not claimed to be: it is a *status*
+   * colour, used only to mark immediate delivery on the board, which is the
+   * one thing their whole feed is about. No other site in this set uses green
+   * at all.
+   */
+  --color-paper: #f2efe9;
+  --color-paper-2: #e6e2da;
+  --color-paper-3: #d2cdc3;
+  --color-ink: #12141a; /* the wall the slogan is painted on */
+  --color-ink-2: #2a2e36;
+  --color-slate: #5c616b; /* 6.2:1 on paper */
+  --color-slate-2: #8b909a; /* rules only — never text */
+  --color-signal: #b8261f; /* their shield, taken down until it clears AA on both light surfaces: 5.5:1 on paper, 4.9:1 on paper-2 */
+  --color-signal-hi: #ff4e47; /* the measured original — dark grounds only */
+  --color-go: #17663e; /* status: available now — 6.1:1 on paper, 5.4:1 on paper-2 */
+
+  --font-display: var(--font-bricolage), "Helvetica Neue", sans-serif;
+  --font-body: var(--font-onest), system-ui, sans-serif;
+  --font-arabic-display: var(--font-reem), "Segoe UI", sans-serif;
+  --font-arabic-body: var(--font-vazir), system-ui, sans-serif;
+
+  --text-hero: clamp(2.2rem, 6vw, 5.2rem);
+  --text-display: clamp(1.7rem, 3.6vw, 3rem);
+  --text-section: clamp(1.25rem, 2.3vw, 1.8rem);
+  --text-lead: clamp(1rem, 1.1vw, 1.14rem);
+
+  --ease-go: cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+@layer base {
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: auto;
+  }
+
+  body {
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  html[dir="rtl"] body {
+    font-family: var(--font-arabic-body);
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-signal-hi);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+html[dir="rtl"] .font-display {
+  font-family: var(--font-arabic-display);
+}
+
+@utility label {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+html[dir="rtl"] .label {
+  font-family: var(--font-arabic-display);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.88rem;
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* The status chip on the board: available now, always. */
+@utility go-chip {
+  color: var(--color-go);
+  border: 1px solid color-mix(in srgb, var(--color-go) 45%, transparent);
+  background: color-mix(in srgb, var(--color-go) 8%, transparent);
+}
+
+/*
+ * Motion signature: roll. Nothing waits — content is already moving when it
+ * arrives and simply comes to rest, entering along the reading direction
+ * rather than fading up from nothing.
+ */
+@keyframes roll-in {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--roll-from, -22px), 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes idle-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes roll-in {
+    from {
+      opacity: 1;
+      transform: none;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes rule-draw {
+    from {
+      transform: none;
+    }
+    to {
+      transform: none;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * The reveal, driven by a data attribute the observer writes. Unlayered so a
+ * Tailwind opacity utility cannot outrank the resting state. Touches only
+ * opacity and transform — never clip-path, which would collapse the observed
+ * element's intersection rect to zero.
+ * ------------------------------------------------------------------------ */
+
+[data-roll] {
+  opacity: 0;
+}
+
+[data-roll][data-seen] {
+  animation: roll-in 620ms var(--ease-go) var(--roll-delay, 0ms) both;
+}
+
+/* Content enters along the reading direction, so RTL rolls in from the right. */
+html[dir="rtl"] [data-roll] {
+  --roll-from: 22px;
+}
+
+[data-rule] {
+  transform: scaleX(0);
+}
+
+[data-rule][data-seen] {
+  animation: rule-draw 560ms var(--ease-go) var(--roll-delay, 0ms) both;
+}
+
+/* ---------------------------------------------------------------------------
+ * Arabic corrections. Unlayered so they outrank Tailwind utilities, and keyed
+ * off [dir] rather than [lang] — browser translation rewrites lang.
+ * ------------------------------------------------------------------------ */
+
+html[dir="ltr"] .text-hero {
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+html[dir="rtl"] .text-hero {
+  font-size: clamp(2rem, 5.4vw, 4.4rem);
+  line-height: 1.42;
+  padding-top: 0.08em;
+}
+
+html[dir="ltr"] .text-display {
+  line-height: 1.04;
+}
+
+html[dir="rtl"] .text-display {
+  font-size: clamp(1.55rem, 3.2vw, 2.6rem);
+  line-height: 1.42;
+}
+
+html[dir="rtl"] [class*="tracking-["],
+html[dir="rtl"] .tracking-widest,
+html[dir="rtl"] .tracking-wider {
+  letter-spacing: 0;
+}
+
+/* Marque and model names stay Latin and LTR inside Arabic copy. */
+.latin {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-display);
+}
+
+html[dir="rtl"] .latin {
+  font-family: var(--font-display);
+  /* `direction: ltr` on a block resolves `text-align: start` to left, which
+     strands Latin names on the wrong edge of an RTL page. */
+  text-align: right;
+}
