@@ -8,9 +8,10 @@
  * wall reading NO WAITING JUST DRIVING, with their red shield beside it.
  *
  * The rest of the page is built from what they publish in words: the slogan,
- * the five origins their bio names, the marques in their highlights, the
- * three branches with their addresses and phone blocks, and the offers they
- * ran.
+ * the five origins their bio names, the marques in their highlights, and the
+ * three branches with their addresses and phone blocks. Time-bound campaign
+ * details — cashback rates, deposit terms, sale dates — are left out: they
+ * date fast and this page is meant to stay current without upkeep.
  */
 
 /** Their hashtag, on every post. */
@@ -53,7 +54,6 @@ export type Listing = {
   line: string;
   /** Which language they wrote that line in. */
   wrote: "ar" | "en";
-  offer?: string;
   postUrl: string;
   photo?: string;
 };
@@ -87,7 +87,6 @@ export const LISTINGS: Listing[] = [
     model: "Arrizo 5",
     line: "شكل مميز، مساحة مريحة، ومواصفات تناسب احتياجاتك.",
     wrote: "ar",
-    offer: "8%",
     postUrl: post("DctW9UbiSmt"),
   },
   {
@@ -96,7 +95,6 @@ export const LISTINGS: Listing[] = [
     model: "Magnite",
     line: "كل التسهيلات عندنا .",
     wrote: "ar",
-    offer: "8%",
     postUrl: post("DcbcEB6ETtA"),
   },
 ];

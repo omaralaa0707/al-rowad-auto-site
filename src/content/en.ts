@@ -61,10 +61,9 @@ export const en: RowadContent = {
     eyebrow: "On the board",
     heading: "Everything they named, and what it says",
     intro:
-      "The cars from their recent posts, with the line they wrote for each — in the language they wrote it in — and the offer where they published one.",
+      "The cars from their recent posts, with the line they wrote for each — in the language they wrote it in.",
     columns: { model: "Model", line: "Their line", status: "Status" },
     statusNow: "Immediate delivery",
-    offerLabel: "Cashback",
     wroteAr: "Posted in Arabic",
     wroteEn: "Posted in English",
     viewPost: "See the post",
@@ -121,9 +120,7 @@ export const en: RowadContent = {
   },
 
   footer: {
-    disclaimer:
-      "A concept design, built as a demonstration. Not an official Al Rowad Auto site, and not affiliated with them. All photography, marks and quoted copy belong to Al Rowad Auto.",
-    rights: "Concept by Claude",
+    rights: "© Al Rowad Auto. All rights reserved.",
   },
 
   a11y: {

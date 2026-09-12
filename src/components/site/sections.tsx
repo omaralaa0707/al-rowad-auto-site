@@ -117,7 +117,7 @@ export function Hero() {
 
           <h1 className="mt-4 font-display text-hero font-extrabold text-ink">{c.hero.headline}</h1>
 
-          <GoRule className="mt-6 max-w-[18rem]" delay={160} />
+          <GoRule className="mt-6 max-w-[18rem]" />
 
           <p className="mt-6 max-w-[38rem] text-lead leading-relaxed text-slate">{c.hero.sub}</p>
 
@@ -167,30 +167,28 @@ export function Origins() {
 
   return (
     <section id="origins" className="relative bg-paper-2 py-24 sm:py-32">
-      <div className="mx-auto max-w-[80rem] px-5 sm:px-8">
-        <Roll as="div" className="max-w-[46rem]">
+      <Roll as="div" className="mx-auto max-w-[80rem] px-5 sm:px-8">
+        <div className="max-w-[46rem]">
           <p className="label text-signal">{c.origins.eyebrow}</p>
           <h2 className="mt-4 font-display text-display font-extrabold text-ink">
             {c.origins.heading}
           </h2>
-          <GoRule className="mt-5 max-w-[7rem]" delay={100} />
+          <GoRule className="mt-5 max-w-[7rem]" />
           <p className="mt-6 text-lead leading-relaxed text-slate">{c.origins.intro}</p>
-        </Roll>
+        </div>
 
-        <Roll as="blockquote" delay={80} className="mt-10 border-s-4 border-signal ps-5">
+        <blockquote className="mt-10 border-s-4 border-signal ps-5">
           <p className="font-display text-[clamp(1.15rem,2.4vw,1.8rem)] font-bold leading-snug text-ink">
             “{c.origins.quote}”
           </p>
-        </Roll>
+        </blockquote>
 
         <div className="mt-14 grid gap-px overflow-hidden border border-paper-3 bg-paper-3 sm:grid-cols-2 lg:grid-cols-3">
           {ORIGINS.map((o: Origin, i) => {
             const items = MARQUES.filter((m) => m.origin === o);
             return (
-              <Roll
+              <div
                 key={o}
-                as="div"
-                delay={i * 70}
                 // Five origins in a three-column grid leaves a hole; the
                 // last cell takes the remaining width instead.
                 className={`bg-paper-2 p-7 ${i === ORIGINS.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}`}
@@ -213,11 +211,11 @@ export function Origins() {
                     </li>
                   ))}
                 </ul>
-              </Roll>
+              </div>
             );
           })}
         </div>
-      </div>
+      </Roll>
     </section>
   );
 }
@@ -229,22 +227,20 @@ export function Board() {
 
   return (
     <section id="board" className="relative bg-paper py-24 sm:py-32">
-      <div className="mx-auto max-w-[86rem] px-5 sm:px-8">
-        <Roll as="div" className="max-w-[46rem]">
+      <Roll as="div" className="mx-auto max-w-[86rem] px-5 sm:px-8">
+        <div className="max-w-[46rem]">
           <p className="label text-signal">{c.board.eyebrow}</p>
           <h2 className="mt-4 font-display text-display font-extrabold text-ink">
             {c.board.heading}
           </h2>
-          <GoRule className="mt-5 max-w-[7rem]" delay={100} />
+          <GoRule className="mt-5 max-w-[7rem]" />
           <p className="mt-6 text-lead leading-relaxed text-slate">{c.board.intro}</p>
-        </Roll>
+        </div>
 
         <div className="mt-14 border-t-2 border-ink">
-          {LISTINGS.map((l, i) => (
-            <Roll
+          {LISTINGS.map((l) => (
+            <article
               key={l.id}
-              as="article"
-              delay={Math.min(i, 4) * 70}
               className="grid gap-5 border-b border-paper-3 py-7 lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] lg:items-center lg:gap-8"
             >
               <div>
@@ -277,19 +273,14 @@ export function Board() {
               </div>
 
               <div className="flex items-center gap-3 lg:justify-end">
-                {l.offer && (
-                  <span className="border border-signal/50 px-2.5 py-1 text-[0.78rem] font-semibold text-signal">
-                    {l.offer} {c.board.offerLabel}
-                  </span>
-                )}
                 <span className="go-chip px-2.5 py-1 text-[0.78rem] font-semibold">
                   {c.board.statusNow}
                 </span>
               </div>
-            </Roll>
+            </article>
           ))}
         </div>
-      </div>
+      </Roll>
     </section>
   );
 }
@@ -313,7 +304,7 @@ export function Branches() {
 
         <div className="mt-14 grid gap-px overflow-hidden border border-white/15 bg-white/15 lg:grid-cols-3">
           {BRANCHES.map((b, i) => (
-            <Roll key={b.id} as="div" delay={i * 80} className="bg-ink p-7 sm:p-8">
+            <Roll key={b.id} as="div" className="bg-ink p-7 sm:p-8">
               <p className="label text-signal-hi">{c.branches.cityLabels[b.city]}</p>
               <h3 className="mt-2 font-display text-[1.4rem] font-bold text-paper">
                 {c.branches.names[b.id]}
@@ -348,7 +339,7 @@ export function Branches() {
           ))}
         </div>
 
-        <Roll as="p" delay={120} className="mt-8 text-[0.9rem] text-paper-3">
+        <Roll as="p" className="mt-8 text-[0.9rem] text-paper-3">
           {c.branches.whatsappLabel}:{" "}
           <a
             href={PROFILE.whatsappHref}
@@ -375,11 +366,11 @@ export function Room() {
           <h2 className="mt-4 font-display text-display font-extrabold text-ink">
             {c.room.heading}
           </h2>
-          <GoRule className="mt-5 max-w-[7rem]" delay={100} />
+          <GoRule className="mt-5 max-w-[7rem]" />
         </Roll>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-14">
-          <Roll as="div" delay={110}>
+          <Roll as="div">
             <div className="grid gap-3 sm:grid-cols-2">
               {SHOWROOM_FRAMES.map((src, i) => (
                 <figure key={src} className="relative aspect-[3/2] overflow-hidden bg-paper-2">
@@ -410,7 +401,7 @@ export function Room() {
             </div>
           </Roll>
 
-          <Roll as="div" delay={60}>
+          <Roll as="div">
             <div className="space-y-4 text-[0.98rem] leading-relaxed text-slate">
               {c.room.body.map((p) => (
                 <p key={p.slice(0, 24)}>{p}</p>
@@ -494,7 +485,6 @@ export function Footer() {
               </a>
             </nav>
             <div className="max-w-2xl space-y-3 border-t border-white/15 pt-6">
-              <p className="text-[0.82rem] leading-relaxed text-paper-3">{c.footer.disclaimer}</p>
               <p className="label text-paper-3">{c.footer.rights}</p>
             </div>
           </div>

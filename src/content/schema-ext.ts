@@ -30,7 +30,6 @@ export type RowadContent = SiteContent & {
     intro: string;
     columns: { model: string; line: string; status: string };
     statusNow: string;
-    offerLabel: string;
     wroteAr: string;
     wroteEn: string;
     viewPost: string;
